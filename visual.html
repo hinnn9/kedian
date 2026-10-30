@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>待办页 · 三个视觉方案</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;
+    background:#EDEFF3;color:#1B1F2A;padding:26px 18px 40px;-webkit-font-smoothing:antialiased;
+  }
+  .head{max-width:1180px;margin:0 auto 22px}
+  .head h1{font-size:19px;font-weight:700;letter-spacing:.2px}
+  .head p{font-size:12.5px;color:#7C8494;margin-top:6px;line-height:1.7}
+  .wrap{max-width:1180px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+  .col{width:352px}
+  .cap{margin-bottom:12px}
+  .cap b{font-size:14px}
+  .cap span{font-size:11.5px;color:#8A92A2;display:block;margin-top:4px;line-height:1.6}
+  .phone{
+    width:352px;height:660px;border-radius:26px;overflow:hidden;position:relative;
+    box-shadow:0 14px 40px rgba(20,28,54,.14);
+  }
+
+  /* ============ A · Paper ============ */
+  .A{background:#FAFAF8}
+  .A .status{height:22px}
+  .A .pad{padding:0 20px}
+  .A .tabs{display:flex;gap:22px;padding:16px 20px 14px;border-bottom:1px solid #EDEBE5}
+  .A .tab{font-size:12.5px;color:#9A968C;padding-bottom:0;position:relative}
+  .A .tab.on{color:#2F3A56;font-weight:600}
+  .A .tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-14px;height:2px;background:#2F3A56;border-radius:2px}
+  .A .tab em{font-style:normal;font-size:10.5px;margin-left:4px;opacity:.55}
+  .A .bar{display:flex;align-items:center;gap:16px;padding:14px 20px 6px}
+  .A .bar span{font-size:11.5px;color:#A9A49A}
+  .A .bar .act{color:#2F3A56;font-weight:600;margin-left:auto}
+  .A .item{display:flex;align-items:flex-start;gap:10px;padding:15px 20px;border-bottom:1px solid #F2F0EA;position:relative}
+  .A .item:last-child{border-bottom:none}
+  .A .bar4{position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 2px 2px 0}
+  .A .box{width:17px;height:17px;border-radius:50%;border:1.5px solid #D3CFC5;flex:none;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:.18s}
+  .A .box.on{background:#2F3A56;border-color:#2F3A56}
+  .A .box.on::after{content:'';width:7px;height:4px;border-left:1.6px solid #fff;border-bottom:1.6px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+  .A .txt{flex:1;min-width:0}
+  .A .t1{font-size:13.6px;line-height:1.45;color:#22262F}
+  .A .t2{font-size:10.8px;color:#A8A399;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .A .side{flex:none;text-align:right;padding-left:8px}
+  .A .d1{font-size:11px;color:#8E8A80}
+  .A .d1.od{color:#B4483F;font-weight:600}
+  .A .done .t1{color:#BEB9AE;text-decoration:line-through}
+
+  /* ============ B · Soft ============ */
+  .B{background:#F1F3F8}
+  .B .status{height:22px}
+  .B .segbar{margin:12px 14px 0;background:#fff;border-radius:16px;padding:11px 0;display:flex;align-items:center;box-shadow:0 3px 12px rgba(24,32,64,.05)}
+  .B .seg{flex:1;text-align:center}
+  .B .seg n{display:block;font-size:16px;font-weight:700;color:#B4B9C6}
+  .B .seg s{display:block;font-size:10.5px;color:#8A90A0;margin-top:2px;text-decoration:none}
+  .B .seg.on n{color:#4F5BD5}
+  .B .seg.on s{color:#3A4050;font-weight:600}
+  .B .div{width:1px;height:24px;background:#F0F1F5}
+  .B .pills{display:flex;gap:8px;padding:12px 14px 8px;align-items:center}
+  .B .pill{display:flex;align-items:center;height:28px;padding:0 11px;border-radius:14px;background:#E7EAF2;font-size:11px;color:#5A6072}
+  .B .pill b{color:#3A4050;font-weight:600;margin-left:5px}
+  .B .pill .c{font-size:9px;margin-left:6px;color:#A7ADBC}
+  .B .add{margin-left:auto;font-size:12px;color:#4F5BD5;font-weight:600}
+  .B .list{padding:0 14px}
+  .B .card{background:#fff;border-radius:16px;padding:13px 14px 13px 16px;margin-bottom:9px;display:flex;align-items:center;gap:11px;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(24,32,64,.045);transition:.2s}
+  .B .card:active{transform:scale(.985)}
+  .B .stick{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .B .badge{font-size:9.5px;font-weight:600;padding:3px 7px;border-radius:5px;flex:none}
+  .B .txt{flex:1;min-width:0}
+  .B .t1{font-size:13.4px;line-height:1.4}
+  .B .t2{font-size:10.6px;color:#9AA0AE;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .B .dd{flex:none;text-align:right}
+  .B .d1{font-size:11px;color:#A7ADBC}
+  .B .d1.r{color:#E24C4C;font-weight:600}
+  .B .d1.a{color:#E08A1E;font-weight:600}
+  .B .d2{font-size:9.5px;color:#C2C7D2;margin-top:2px}
+  .B .od{display:inline-block;font-size:8.5px;color:#fff;background:#E24C4C;border-radius:3px;padding:1px 5px;margin-right:5px;vertical-align:1px}
+
+  /* ============ C · Ink ============ */
+  .C{background:#fff}
+  .C .status{height:22px}
+  .C .top{display:flex;align-items:baseline;padding:14px 18px 6px}
+  .C .top h2{font-size:22px;font-weight:700;letter-spacing:-.4px}
+  .C .top .n{font-size:11px;color:#9AA0AE;margin-left:8px}
+  .C .top .plus{margin-left:auto;font-size:11.5px;color:#E4574C;font-weight:600}
+  .C .bar2{display:flex;gap:14px;padding:8px 18px 10px;border-bottom:1px solid #F1F2F6}
+  .C .bar2 span{font-size:11.5px;color:#5A6072}
+  .C .bar2 span i{font-style:normal;font-size:9px;color:#B4B9C6;margin-left:4px}
+  .C .row{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid #F4F5F9;transition:.18s}
+  .C .box{width:16px;height:16px;border-radius:4px;border:1.4px solid #D8DCE6;flex:none;margin-right:11px;display:flex;align-items:center;justify-content:center}
+  .C .box.on{background:#E4574C;border-color:#E4574C}
+  .C .box.on::after{content:'';width:7px;height:4px;border-left:1.6px solid #fff;border-bottom:1.6px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+  .C .txt{flex:1;min-width:0}
+  .C .sub{font-size:9.5px;color:#B4B9C6;letter-spacing:.4px}
+  .C .t1{font-size:13.4px;margin-top:2px;line-height:1.4}
+  .C .date{flex:none;text-align:right;font-size:11px;color:#8A90A0;padding-left:10px}
+  .C .date b{display:block;font-weight:400;font-size:9.5px;color:#B4B9C6;margin-top:2px}
+  .C .date.od b{color:#E4574C;font-weight:600}
+  .C .date.od{color:#E4574C}
+  .C .done .t1{color:#C2C7D2;text-decoration:line-through}
+
+  /* 打卡条示例（B 里放一个） */
+  .B .sec{padding:16px 14px 8px;font-size:10.5px;color:#9AA0AE;}
+  .B .ck{background:#fff;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:0 2px 8px rgba(24,32,64,.045)}
+  .B .ck .box{width:19px;height:19px;border-radius:50%;border:1.6px solid #D8DCE6;flex:none;display:flex;align-items:center;justify-content:center}
+  .B .ck .box.on{background:#4F5BD5;border-color:#4F5BD5}
+  .B .ck .box.on::after{content:'';width:8px;height:5px;border-left:1.7px solid #fff;border-bottom:1.7px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+  .B .ck .nm{flex:1;font-size:13px}
+  .B .grid{display:flex;gap:3px;margin-top:5px}
+  .B .grid i{width:9px;height:9px;border-radius:2px;background:#E8EBF4;display:block;font-style:normal}
+  .B .grid i.f{background:#4F5BD5}
+</style>
+</head>
+<body>
+<div class="head">
+  <h1>待办页 · 三个视觉方向</h1>
+  <p>同一批任务数据，三种设计立场。点勾选框可以看到完成动效。</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ A ============ -->
+  <div class="col">
+    <div class="cap"><b>A · Paper 纸感极简</b><span>学 Things 3。无卡片、单强调色、学科用竖线。最耐看，密度最低。</span></div>
+    <div class="phone A">
+      <div class="status"></div>
+      <div class="tabs">
+        <div class="tab on">待办<em>6</em></div>
+        <div class="tab">已完成<em>2</em></div>
+        <div class="tab">打卡<em>3</em></div>
+      </div>
+      <div class="bar">
+        <span>截止日期</span><span>全部学科</span>
+        <span class="act">＋ 添加</span>
+      </div>
+      <div class="item">
+        <div class="bar4" style="background:#5B7CFA"></div>
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="t1">习题册 3.1–3.6</div><div class="t2">周一交，第 3 章全做</div></div>
+        <div class="side"><div class="d1">明天</div></div>
+      </div>
+      <div class="item">
+        <div class="bar4" style="background:#EB5757"></div>
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="t1">读《天朝田亩制度》写 800 字读书报告</div><div class="t2">要引用原文，别超过字数</div></div>
+        <div class="side"><div class="d1">后天</div></div>
+      </div>
+      <div class="item">
+        <div class="bar4" style="background:#2D9CDB"></div>
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="t1">小组报告：市场调研提纲</div><div class="t2">组队：李明轩、王、陈，分工见群</div></div>
+        <div class="side"><div class="d1 od">逾期 2 天</div></div>
+      </div>
+      <div class="item">
+        <div class="bar4" style="background:#27AE60"></div>
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="t1">Prepare 3-min presentation</div><div class="t2">Topic: AI in education</div></div>
+        <div class="side"><div class="d1">3 天后</div></div>
+      </div>
+      <div class="item">
+        <div class="bar4" style="background:#9B51E0"></div>
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="t1">实验一：循环与数组</div><div class="t2">无备注</div></div>
+        <div class="side"><div class="d1">5 天后</div></div>
+      </div>
+      <div class="item">
+        <div class="bar4" style="background:#00B8A9"></div>
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="t1">阅读《数字经济导论》第 2 章</div><div class="t2">无备注</div></div>
+        <div class="side"><div class="d1">6 天后</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ B ============ -->
+  <div class="col">
+    <div class="cap"><b>B · Soft 柔光卡片</b><span>学 Structured + TickTick。独立卡片、学科色条、蓝紫主色。最现代，层次最好。</span></div>
+    <div class="phone B">
+      <div class="status"></div>
+      <div class="segbar">
+        <div class="seg on"><n>6</n><s>待办</s></div>
+        <div class="div"></div>
+        <div class="seg"><n>2</n><s>已完成</s></div>
+        <div class="div"></div>
+        <div class="seg"><n>3</n><s>打卡</s></div>
+      </div>
+      <div class="pills">
+        <div class="pill">排序<b>截止日期</b><span class="c">▾</span></div>
+        <div class="pill">筛选<b>全部</b><span class="c">▾</span></div>
+        <div class="add">＋ 添加</div>
+      </div>
+      <div class="list">
+        <div class="card">
+          <div class="stick" style="background:#5B7CFA"></div>
+          <div class="badge" style="color:#5B7CFA;background:#5B7CFA14;border:1px solid #5B7CFA3D">高数</div>
+          <div class="txt"><div class="t1">习题册 3.1–3.6</div><div class="t2">周一交，第 3 章全做</div></div>
+          <div class="dd"><div class="d1">明天</div><div class="d2">10/30 周五</div></div>
+        </div>
+        <div class="card">
+          <div class="stick" style="background:#EB5757"></div>
+          <div class="badge" style="color:#EB5757;background:#EB575714;border:1px solid #EB57573D">思政</div>
+          <div class="txt"><div class="t1">读《天朝田亩制度》写读书报告</div><div class="t2">要引用原文，别超过字数</div></div>
+          <div class="dd"><div class="d1 a">后天</div><div class="d2">10/31 周六</div></div>
+        </div>
+        <div class="card">
+          <div class="stick" style="background:#2D9CDB"></div>
+          <div class="badge" style="color:#2D9CDB;background:#2D9CDB14;border:1px solid #2D9CDB3D">管理学</div>
+          <div class="txt"><div class="t1"><span class="od">逾期</span>小组报告：市场调研提纲</div><div class="t2">组队：李明轩、王、陈，分工见群</div></div>
+          <div class="dd"><div class="d1 r">逾期2天</div><div class="d2">10/28 周三</div></div>
+        </div>
+        <div class="card">
+          <div class="stick" style="background:#27AE60"></div>
+          <div class="badge" style="color:#27AE60;background:#27AE6014;border:1px solid #27AE603D">大英</div>
+          <div class="txt"><div class="t1">Prepare 3-min presentation</div><div class="t2">Topic: AI in education</div></div>
+          <div class="dd"><div class="d1">3 天后</div><div class="d2">11/2 周一</div></div>
+        </div>
+      </div>
+      <div class="sec">打卡 · 今天还剩 2 项</div>
+      <div style="padding:0 14px">
+        <div class="ck">
+          <div class="box on"></div>
+          <div class="nm">背 30 个单词<div class="grid"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ C ============ -->
+  <div class="col">
+    <div class="cap"><b>C · Ink 墨线克制</b><span>学 Todoist。无卡片无阴影、学科退成小灰字、只有一个红。密度最高，扫读最快。</span></div>
+    <div class="phone C">
+      <div class="status"></div>
+      <div class="top"><h2>6 项待办</h2><span class="n">2 已完成 · 3 待打卡</span><span class="plus">＋</span></div>
+      <div class="bar2">
+        <span>截止日期<i>▾</i></span><span>全部学科<i>▾</i></span>
+      </div>
+      <div class="row">
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="sub">高数</div><div class="t1">习题册 3.1–3.6</div></div>
+        <div class="date">明天<b>10/30</b></div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="sub">思政</div><div class="t1">读《天朝田亩制度》写 800 字读书报告</div></div>
+        <div class="date">后天<b>10/31</b></div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="sub">管理学</div><div class="t1">小组报告：市场调研提纲</div></div>
+        <div class="date od">逾期 2 天<b>10/28</b></div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="sub">大英</div><div class="t1">Prepare 3-min presentation</div></div>
+        <div class="date">3 天后<b>11/02</b></div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="sub">程设</div><div class="t1">实验一：循环与数组</div></div>
+        <div class="date">5 天后<b>11/04</b></div>
+      </div>
+      <div class="row">
+        <div class="box on"></div>
+        <div class="txt done"><div class="sub">微观</div><div class="t1">小组作业：供需曲线分析</div></div>
+        <div class="date">11/01</div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="this.classList.toggle('on')"></div>
+        <div class="txt"><div class="sub">数经</div><div class="t1">阅读《数字经济导论》第 2 章</div></div>
+        <div class="date">6 天后<b>11/05</b></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
